@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import './Landing.css';
+
 const LOGO = 'public/electronicabonilla.png';
-
-
 const api = axios.create({ baseURL: '/api/public' });
 
 const SERVICES = [
@@ -18,6 +17,7 @@ const SERVICES = [
   { icon: 'fa-shopping-cart',  title: 'Venta Repuestos',  desc: 'Repuestos originales y alternativos para todas las marcas.', tag: 'Envíos' },
   { icon: 'fa-shield',        title: 'Garantía',          desc: 'Hasta 6 meses de garantía en nuestras reparaciones.', tag: '6 meses' },
 ];
+
 
 const SERVICE_TYPES = [
   { value: 'diagnostico', label: 'Diagnóstico',     icon: 'fa-stethoscope' },
