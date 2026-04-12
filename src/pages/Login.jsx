@@ -33,7 +33,7 @@ export default function Login() {
         <div className="login-logo">
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
             <img
-              src="public/logo.png"
+              src="logo.png"
               alt="Electrónica Bonilla"
               className="login-icon"
               style={{ width: 110, height: 110, objectFit: 'contain', borderRadius: 16, display: 'block' }}
