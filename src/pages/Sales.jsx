@@ -3,7 +3,7 @@ import { saleService } from '../services';
 import { fmt } from '../utils/formatters';
 import Modal from '../components/common/Modal';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import { printSaleTicket } from '../utils/thermalPrint';
 
 // Fecha de hoy y primer día del mes como default
 const today    = new Date().toISOString().split('T')[0];
@@ -11,16 +11,14 @@ const firstDay = today.slice(0, 7) + '-01';
 
 async function printSale(sale) {
   try {
-    // Si viene del listado (sin items), traer el detalle completo
     let data = sale;
     if (!sale.items) {
-      const res = await saleService.getById(sale.id);
-      data = res;
+      data = await saleService.getById(sale.id);
     }
-    await axios.post('/api/print/sale', data);
+    await printSaleTicket(data);
     toast.success('Ticket enviado a imprimir');
   } catch (err) {
-    toast.error(err.response?.data?.error || 'Error al imprimir');
+    toast.error('Error al imprimir');
   }
 }
 
