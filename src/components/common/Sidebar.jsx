@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
-const LOGO = '/img/electronicabonilla.png';
+const LOGO = 'public/electronicabonilla.png';
 
 const NAV = [
   { to: '/',          icon: '📊', label: 'Dashboard' },

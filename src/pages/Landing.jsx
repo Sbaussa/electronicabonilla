@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import './Landing.css';
-const LOGO = 'img/electronicabonilla.png';
+const LOGO = 'public/electronicabonilla.png';
 
 
 const api = axios.create({ baseURL: '/api/public' });
