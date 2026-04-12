@@ -66,9 +66,10 @@ export default function Login() {
           </button>
         </form>
         <div className="login-hint">
-          © {new Date().getFullYear()} Electrónica Bonilla — Todos los derechos reservados
+          © {new Date().getFullYear()} Baussa — Todos los derechos reservados.
         </div>
       </div>
     </div>
   );
 }
+
