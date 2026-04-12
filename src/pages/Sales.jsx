@@ -3,10 +3,26 @@ import { saleService } from '../services';
 import { fmt } from '../utils/formatters';
 import Modal from '../components/common/Modal';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 // Fecha de hoy y primer día del mes como default
 const today    = new Date().toISOString().split('T')[0];
 const firstDay = today.slice(0, 7) + '-01';
+
+async function printSale(sale) {
+  try {
+    // Si viene del listado (sin items), traer el detalle completo
+    let data = sale;
+    if (!sale.items) {
+      const res = await saleService.getById(sale.id);
+      data = res;
+    }
+    await axios.post('/api/print/sale', data);
+    toast.success('Ticket enviado a imprimir');
+  } catch (err) {
+    toast.error(err.response?.data?.error || 'Error al imprimir');
+  }
+}
 
 export default function Sales() {
   const [sales, setSales]   = useState([]);
@@ -15,6 +31,7 @@ export default function Sales() {
   const [from, setFrom]     = useState(firstDay);
   const [to, setTo]         = useState(today);
   const [status, setStatus] = useState('');
+  const [printing, setPrinting] = useState(null); // id de la venta que se está imprimiendo
 
   const load = () => saleService.getAll({ from, to, status, limit: 200 }).then(setSales);
   useEffect(() => { load(); }, [from, to, status]);
@@ -28,6 +45,16 @@ export default function Sales() {
       toast.success('Venta anulada');
       setModal(false); load();
     } catch (err) { toast.error(err.response?.data?.error || 'Error'); }
+  };
+
+  const handlePrint = async (sale, e) => {
+    e?.stopPropagation();
+    setPrinting(sale.id);
+    try {
+      await printSale(sale);
+    } finally {
+      setPrinting(null);
+    }
   };
 
   const totalRevenue = sales.filter(s => s.status === 'completada').reduce((s, v) => s + Number(v.total), 0);
@@ -77,7 +104,20 @@ export default function Sales() {
                       {s.status}
                     </span>
                   </td>
-                  <td><button className="btn btn-secondary btn-sm" onClick={() => openDetail(s)}>Ver</button></td>
+                  <td>
+                    <div style={{ display: 'flex', gap: '.35rem' }}>
+                      <button className="btn btn-secondary btn-sm" onClick={() => openDetail(s)}>Ver</button>
+                      <button
+                        className="btn btn-sm"
+                        style={{ background: 'var(--bg3)', color: 'var(--text)', border: '1px solid var(--border)' }}
+                        onClick={(e) => handlePrint(s, e)}
+                        disabled={printing === s.id}
+                        title="Reimprimir ticket"
+                      >
+                        {printing === s.id ? '⏳' : '🖨️'}
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
               {sales.length === 0 && (
@@ -89,9 +129,23 @@ export default function Sales() {
       </div>
 
       <Modal open={modal} onClose={() => setModal(false)} title={`Venta ${detail?.invoice_number}`} size="lg"
-        footer={detail?.status === 'completada' && (
-          <button className="btn btn-danger" onClick={() => handleCancel(detail.id)}>Anular venta</button>
-        )}
+        footer={
+          <div style={{ display: 'flex', gap: '0.5rem', width: '100%', justifyContent: 'space-between' }}>
+            <button
+              className="btn btn-sm"
+              style={{ background: 'var(--bg3)', color: 'var(--text)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+              onClick={() => detail && handlePrint(detail)}
+              disabled={printing === detail?.id}
+            >
+              {printing === detail?.id ? '⏳ Imprimiendo…' : '🖨️ Reimprimir ticket'}
+            </button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              {detail?.status === 'completada' && (
+                <button className="btn btn-danger" onClick={() => handleCancel(detail.id)}>Anular venta</button>
+              )}
+            </div>
+          </div>
+        }
       >
         {detail && (
           <div style={{ display:'flex', flexDirection:'column', gap:'1rem' }}>
