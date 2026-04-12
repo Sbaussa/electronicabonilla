@@ -269,9 +269,9 @@ export default function Landing() {
       <header className="landing-header">
         <div className="landing-container lh-inner">
           <div className="landing-brand">
-            <i className="fa fa-television landing-brand-icon"></i>
+            <img src="/logo.png" alt="Logo" style={{ width: 40, height: 40, borderRadius: 6 }} />
             <div>
-              <div className="landing-brand-name">Junior Technical Service</div>
+              <div className="landing-brand-name">Electrónica Bonilla</div>
               <div className="landing-brand-sub">Servicio Técnico y Repuestos TV</div>
             </div>
           </div>
@@ -615,7 +615,7 @@ export default function Landing() {
           <div className="footer-grid">
             <div>
               <div className="footer-brand">
-                <i className="fa fa-television"></i> Junior Technical Service
+                <img src="/logo.png" alt="Logo" style={{ width: 24, height: 24, borderRadius: 4, verticalAlign: 'middle' }} /> Electrónica Bonilla
               </div>
               <div className="footer-desc">
                 Servicio técnico especializado en televisores. Barranquilla, Colombia.
@@ -634,7 +634,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="footer-copy">
-            {new Date().getFullYear()} Junior Technical Service — Todos los derechos reservados
+           © {new Date().getFullYear()} Baussa — Todos los derechos reservados
           </div>
         </div>
       </footer>

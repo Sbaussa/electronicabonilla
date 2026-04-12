@@ -34,7 +34,7 @@ export default function Sidebar() {
           <span className="hamburger-icon">☰</span>
         </button>
         <div className="mobile-topbar-brand">
-          <img src="/electronicabonilla.png" alt="Logo" className="mobile-topbar-logo" />
+          <img src="/logo.png" alt="Logo" className="mobile-topbar-logo" />
           <span>Electrónica Bonilla</span>
         </div>
         <div style={{ width: 36 }} />
@@ -46,7 +46,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside className={`sidebar${open ? ' open' : ''}`}>
         <div className="sidebar-logo">
-          <img src="/electronicabonilla.png" alt="Electrónica Bonilla" className="sidebar-logo-img" />
+          <img src="/logo.png" alt="Electrónica Bonilla" className="sidebar-logo-img" />
           <div>
             <div className="logo-name">Electrónica</div>
             <div className="logo-sub">Bonilla</div>
@@ -78,7 +78,7 @@ export default function Sidebar() {
           <div className="nav-section-label mt-2">Portal</div>
           <NavLink to="/landing" className="nav-item nav-item-landing" onClick={closeMobile}>
             <span className="nav-icon">🌐</span>
-            <span>Landing Page</span>
+            <span>Sitio Web</span>
             <span className="nav-badge">Público</span>
           </NavLink>
         </nav>

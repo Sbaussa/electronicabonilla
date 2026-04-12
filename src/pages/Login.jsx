@@ -31,7 +31,7 @@ export default function Login() {
       </div>
       <div className="login-card">
         <div className="login-logo">
-          <span className="login-icon">📺</span>
+          <img src="/logo.png" alt="Logo" className="login-icon" style={{ width: 70, height: 70, borderRadius: 12 }} />
           <h1>Electrónica<br/>Bonilla</h1>
           <p>Sistema POS & Taller Técnico</p>
         </div>
