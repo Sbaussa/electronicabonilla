@@ -31,8 +31,14 @@ export default function Login() {
       </div>
       <div className="login-card">
         <div className="login-logo">
-          <img src="/logo.png" alt="Logo" className="login-icon" style={{ width: 70, height: 70, borderRadius: 12 }} />
-          <h1>Electrónica<br/>Bonilla</h1>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+            <img
+              src="public/logo.png"
+              alt="Electrónica Bonilla"
+              className="login-icon"
+              style={{ width: 110, height: 110, objectFit: 'contain', borderRadius: 16, display: 'block' }}
+            />
+          </div>
           <p>Sistema POS & Taller Técnico</p>
         </div>
         <form onSubmit={handleSubmit} className="login-form">
@@ -60,7 +66,7 @@ export default function Login() {
           </button>
         </form>
         <div className="login-hint">
-          © {new Date().getFullYear()} Baussas — Todos los derechos reservados
+          © {new Date().getFullYear()} Electrónica Bonilla — Todos los derechos reservados
         </div>
       </div>
     </div>
