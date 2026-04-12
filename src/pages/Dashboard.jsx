@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { reportService } from '../services';
 import { fmt } from '../utils/formatters';
-import './dashboard.css';
+import './Dashboard.css';
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
   BarChart, Bar, Cell, PieChart, Pie,
