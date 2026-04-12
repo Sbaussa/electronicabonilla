@@ -1,0 +1,39 @@
+.status-tabs {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+.status-tab {
+  padding: 0.38rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font);
+}
+.status-tab:hover { border-color: var(--accent); color: var(--accent); }
+.status-tab.active { background: rgba(0,212,255,0.12); border-color: var(--accent); color: var(--accent); }
+
+.status-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.status-option {
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all var(--transition);
+  color: var(--text2);
+}
+.status-option:hover, .status-option.active { border-color: currentColor; opacity: 1; }
+.status-option.active { filter: brightness(1.3); }

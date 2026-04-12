@@ -1,0 +1,74 @@
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.sidebar-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+.logo-icon { font-size: 1.75rem; }
+.logo-name { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+.logo-sub  { font-size: 0.7rem; color: var(--text2); }
+
+.sidebar-nav { flex: 1; padding: 0.75rem 0.6rem; display: flex; flex-direction: column; gap: 2px; }
+.nav-section-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  margin-top: 0.25rem;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius);
+  color: var(--text2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.nav-item:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+.nav-item.active { background: rgba(0,212,255,0.1); color: var(--accent); }
+.nav-item.active .nav-icon { filter: none; }
+.nav-icon { font-size: 1.05rem; width: 1.25rem; text-align: center; }
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.user-info { display: flex; align-items: center; gap: 0.6rem; flex: 1; overflow: hidden; }
+.user-avatar {
+  width: 32px; height: 32px;
+  background: var(--accent2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+}
+.user-name { font-size: 0.82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-role { font-size: 0.7rem; color: var(--text2); text-transform: capitalize; }
+.logout-btn { font-size: 1.1rem; color: var(--text3); padding: 0.3rem; }
+.logout-btn:hover { color: var(--danger); background: rgba(239,68,68,0.1); border-radius: 6px; }

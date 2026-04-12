@@ -1,0 +1,176 @@
+/* ── Dashboard styles — añadir a tu CSS global o App.css ───────── */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Root */
+.db-root { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* Header */
+.db-header { display: flex; align-items: center; justify-content: space-between; }
+.db-title  { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.db-sub    { font-size: 0.82rem; color: var(--text2); text-transform: capitalize; margin-top: 2px; }
+
+.db-live-badge {
+  display: flex; align-items: center; gap: 0.45rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 20px;
+  font-size: 0.72rem; font-weight: 600; color: var(--success);
+}
+.db-live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--success);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+/* KPI grid */
+.db-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.db-stat-card {
+  position: relative;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.1rem 1rem;
+  overflow: hidden;
+  animation: fadeSlideUp 0.4s ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.db-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* Accent bar on left edge */
+.db-stat-bar {
+  position: absolute;
+  left: 0; top: 16px; bottom: 16px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  opacity: 0.85;
+}
+
+.db-stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+.db-stat-meta { display: flex; flex-direction: column; gap: 0.2rem; }
+.db-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text2);
+}
+.db-trend {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+.db-trend.up   { background: rgba(16,185,129,0.12); color: var(--success); }
+.db-trend.down { background: rgba(239,68,68,0.12);  color: var(--danger);  }
+
+.db-stat-icon-wrap {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.db-stat-icon { font-size: 1.1rem; }
+
+.db-stat-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+}
+.db-stat-sub { font-size: 0.72rem; color: var(--text2); }
+.db-spark { margin-top: 0.5rem; }
+
+/* Main grid */
+.db-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1rem;
+}
+
+.db-chart-card .card-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.db-chart-total {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,212,255,0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+/* Repairs */
+.db-repairs-card .card-header {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.db-badge-count {
+  font-size: 0.7rem; font-weight: 700;
+  background: rgba(0,212,255,0.1);
+  color: var(--accent);
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+}
+.db-repairs-list { display: flex; flex-direction: column; gap: 0; }
+.db-repair-row {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.db-repair-row:last-child { border-bottom: none; }
+.db-repair-row:hover { background: rgba(255,255,255,0.02); border-radius: 8px; padding-left: 4px; }
+.db-repair-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+.db-repair-info { flex: 1; overflow: hidden; }
+.db-repair-device {
+  font-size: 0.82rem; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.db-urgent { font-size: 0.75rem; }
+.db-repair-meta { font-size: 0.7rem; color: var(--text2); }
+
+/* Secondary grid */
+.db-secondary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .db-stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .db-main-grid { grid-template-columns: 1fr; }
+  .db-secondary-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .db-stat-grid { grid-template-columns: 1fr; }
+  .db-secondary-grid { grid-template-columns: 1fr; }
+}
