@@ -4,8 +4,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import './Landing.css';
 
-const LOGO = 'public/logo.png';
-const api = axios.create({ baseURL: '/api/public' });
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const api = axios.create({ baseURL: API_BASE.replace('/api', '/api/public') });
 
 const SERVICES = [
   { icon: 'fa-television',    title: 'Diagnóstico',       desc: 'Revisión completa del equipo. Presupuesto sin costo.', tag: 'Gratis' },
@@ -17,7 +17,6 @@ const SERVICES = [
   { icon: 'fa-shopping-cart',  title: 'Venta Repuestos',  desc: 'Repuestos originales y alternativos para todas las marcas.', tag: 'Envíos' },
   { icon: 'fa-shield',        title: 'Garantía',          desc: 'Hasta 6 meses de garantía en nuestras reparaciones.', tag: '6 meses' },
 ];
-
 
 const SERVICE_TYPES = [
   { value: 'diagnostico', label: 'Diagnóstico',     icon: 'fa-stethoscope' },
@@ -184,7 +183,7 @@ function ProductsCatalog() {
         {/* CTA */}
         <div className="catalog-cta">
           <p>¿No encuentras lo que buscas? Contáctanos y te ayudamos</p>
-          <a href="https://wa.me/573009626009?text=Hola, ando buscando un repuesto para mi TV" target="_blank" rel="noreferrer" className="btn-wa">
+          <a href="https://wa.me/573000000000?text=Hola, busco un repuesto para mi TV" target="_blank" rel="noreferrer" className="btn-wa">
             <i className="fa fa-whatsapp"></i> Consultar por WhatsApp
           </a>
         </div>
@@ -270,9 +269,9 @@ export default function Landing() {
       <header className="landing-header">
         <div className="landing-container lh-inner">
           <div className="landing-brand">
-            <img src={LOGO} alt="Electrónica Bonilla" className="landing-brand-logo" />
+            <i className="fa fa-television landing-brand-icon"></i>
             <div>
-              <div className="landing-brand-name">Electrónica Bonilla</div>
+              <div className="landing-brand-name">Junior Technical Service</div>
               <div className="landing-brand-sub">Servicio Técnico y Repuestos TV</div>
             </div>
           </div>
@@ -285,7 +284,7 @@ export default function Landing() {
           </nav>
 
           <div className="landing-header-actions desktop-only">
-            <a href="https://wa.me/573009626009" target="_blank" rel="noreferrer" className="btn-wa">
+            <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="btn-wa">
               <i className="fa fa-whatsapp"></i> WhatsApp
             </a>
             <button className="btn-admin" onClick={() => navigate('/login')}>
@@ -294,7 +293,7 @@ export default function Landing() {
           </div>
 
           <button className="hamburger mobile-only" onClick={() => setMenuOpen(v => !v)}>
-            <i className={`fa ` + (menuOpen ? 'fa-times' : 'fa-bars')}></i>
+            <i className={'fa ' + (menuOpen ? 'fa-times' : 'fa-bars')}></i>
           </button>
         </div>
 
@@ -304,7 +303,7 @@ export default function Landing() {
             <button className="mobile-menu-item" onClick={() => scrollTo('productos')}>Repuestos</button>
             <button className="mobile-menu-item" onClick={() => scrollTo('cotizar')}>Cotizar</button>
             <button className="mobile-menu-item" onClick={() => scrollTo('rastrear')}>Rastrear Equipo</button>
-            <a href="https://wa.me/573009626009" target="_blank" rel="noreferrer" className="btn-wa mobile-menu-item">
+            <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="btn-wa mobile-menu-item">
               <i className="fa fa-whatsapp"></i> WhatsApp
             </a>
             <button className="btn-admin mobile-menu-item" onClick={() => navigate('/login')}>
@@ -317,9 +316,6 @@ export default function Landing() {
       {/* ── HERO ───────────────────────────────────────────────── */}
       <section className="landing-hero">
         <div className="landing-container hero-center">
-          <div className="hero-logo-wrap">
-            <img src={LOGO} alt="Electrónica Bonilla" className="hero-logo" />
-          </div>
           <div className="hero-badge">
             <i className="fa fa-map-marker"></i> Barranquilla, Colombia
           </div>
@@ -327,6 +323,9 @@ export default function Landing() {
             Reparamos tu TV<br />
             <span className="hero-accent">con garantía</span>
           </h1>
+          <p className="hero-sub">
+            Diagnóstico sin costo · Repuestos originales · Garantía hasta 6 meses
+          </p>
           <div className="hero-actions">
             <button className="hero-btn-primary hero-btn-full" onClick={() => scrollTo('cotizar')}>
               <i className="fa fa-clipboard"></i> Solicitar cotización
@@ -337,7 +336,7 @@ export default function Landing() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
-              <span className="hero-stat-num">+999</span>
+              <span className="hero-stat-num">+500</span>
               <span>Equipos reparados</span>
             </div>
             <div className="hero-stat">
@@ -363,7 +362,7 @@ export default function Landing() {
             {SERVICES.map(s => (
               <div key={s.title} className="service-card">
                 <div className="service-card-head">
-                  <i className={`fa ` + s.icon + ` service-icon`}></i>
+                  <i className={'fa ' + s.icon + ' service-icon'}></i>
                   <span className="service-tag">{s.tag}</span>
                 </div>
                 <h3>{s.title}</h3>
@@ -410,10 +409,10 @@ export default function Landing() {
                     <button
                       key={s.value}
                       type="button"
-                      className={`service-type-btn` + (form.service_type === s.value ? ' active' : '')}
+                      className={'service-type-btn' + (form.service_type === s.value ? ' active' : '')}
                       onClick={() => setForm(p => ({ ...p, service_type: s.value }))}
                     >
-                      <i className={`fa ` + s.icon}></i> {s.label}
+                      <i className={'fa ' + s.icon}></i> {s.label}
                     </button>
                   ))}
                 </div>
@@ -496,7 +495,7 @@ export default function Landing() {
                 {/* Status banner */}
                 <div className="repair-status-banner" style={{ borderColor: STATUS_INFO[repair.status]?.color || '#94a3b8' }}>
                   <div className="repair-status-label" style={{ color: STATUS_INFO[repair.status]?.color || '#94a3b8' }}>
-                    <i className={`fa ` + (STATUS_INFO[repair.status]?.icon || 'fa-circle')}></i>
+                    <i className={'fa ' + (STATUS_INFO[repair.status]?.icon || 'fa-circle')}></i>
                     {STATUS_INFO[repair.status]?.label || repair.status}
                   </div>
                   <div className="repair-ticket-num">{repair.ticket_number}</div>
@@ -517,10 +516,10 @@ export default function Landing() {
                     const isCurrent = i + 1 === step;
                     return (
                       <div key={s} className="progress-step">
-                        <div className={`progress-dot` + (isDone ? ' done' : '') + (isCurrent ? ' current' : '')}>
+                        <div className={'progress-dot' + (isDone ? ' done' : '') + (isCurrent ? ' current' : '')}>
                           {isDone && <i className="fa fa-check" style={{ fontSize: '9px', color: '#000' }}></i>}
                         </div>
-                        <div className={`progress-label` + (isDone ? ' done' : '')}>{s}</div>
+                        <div className={'progress-label' + (isDone ? ' done' : '')}>{s}</div>
                       </div>
                     );
                   })}
@@ -597,7 +596,7 @@ export default function Landing() {
                 )}
 
                 <a
-                  href={`https://wa.me/573009626009?text=Hola, consulto por mi equipo con ticket ` + repair.ticket_number}
+                  href={'https://wa.me/573000000000?text=Hola, consulto por mi equipo con ticket ' + repair.ticket_number}
                   target="_blank"
                   rel="noreferrer"
                   className="wa-btn"
@@ -616,7 +615,7 @@ export default function Landing() {
           <div className="footer-grid">
             <div>
               <div className="footer-brand">
-                <img src={LOGO} alt="Electrónica Bonilla" className="footer-brand-logo" />
+                <i className="fa fa-television"></i> Junior Technical Service
               </div>
               <div className="footer-desc">
                 Servicio técnico especializado en televisores. Barranquilla, Colombia.
@@ -624,25 +623,24 @@ export default function Landing() {
             </div>
             <div>
               <div className="footer-title">Contacto</div>
-              <div><i className="fa fa-phone"></i> +57 322 5251842</div>
+              <div><i className="fa fa-phone"></i> +57 300 0000000</div>
               <div><i className="fa fa-map-marker"></i> Barranquilla, Colombia</div>
-              <div><i className="fa fa-envelope"></i> Calle 76f #22D - 38</div>
-              <div><i className="fa fa-clock-o"></i> Lun-Sáb     9AM-5PM</div>
+              <div><i className="fa fa-clock-o"></i> Lun-Sáb 8am-6pm</div>
             </div>
             <div>
               <div className="footer-title">Marcas que reparamos</div>
               <div>Samsung · LG · Sony · Hisense</div>
-              <div>TCL · Panasonic · Sharp · Philips · Etc...</div>
+              <div>TCL · Panasonic · Sharp · Philips</div>
             </div>
           </div>
           <div className="footer-copy">
-            © {new Date().getFullYear()} Baussas — Todos los derechos reservados
+            {new Date().getFullYear()} Junior Technical Service — Todos los derechos reservados
           </div>
         </div>
       </footer>
 
       {/* ── FLOATING WA BUTTON ─────────────────────────────────── */}
-      <a href="https://wa.me/573009626009" target="_blank" rel="noreferrer" className="wa-float">
+      <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="wa-float">
         <i className="fa fa-whatsapp"></i>
       </a>
     </div>
