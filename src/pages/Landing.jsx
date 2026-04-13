@@ -56,8 +56,19 @@ const fmtCOP = (n) => {
   return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(n);
 };
 
+
+const getGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour >= 9 && hour < 12)  return { text: '¡Buenos días!',   icon: 'fa-sun-o' };
+  if (hour >= 12 && hour < 17) return { text: '¡Buenas tardes!', icon: 'fa-sun-o' };
+  return null;
+};
+
 // ── Sección de Productos ──────────────────────────────────────────
 function ProductsCatalog() {
+  const greeting     = getGreeting();
+  const greetingText = greeting ? greeting.text : 'Hola,';
+
   const [products, setProducts]   = useState([]);
   const [brands, setBrands]       = useState([]);
   const [search, setSearch]       = useState('');
@@ -182,8 +193,14 @@ function ProductsCatalog() {
 
         {/* CTA */}
         <div className="catalog-cta">
+          <p id="saludo">{greeting ? greeting.text : ''}</p>
           <p>¿No encuentras lo que buscas? Contáctanos y te ayudamos</p>
-          <a href="https://wa.me/573000000000?text=Hola, busco un repuesto para mi TV" target="_blank" rel="noreferrer" className="btn-wa">
+          <a
+            href={`https://wa.me/573225251842?text=${greetingText} busco un repuesto para mi TV`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-wa"
+          >
             <i className="fa fa-whatsapp"></i> Consultar por WhatsApp
           </a>
         </div>
@@ -202,6 +219,9 @@ export default function Landing() {
   const [sending, setSending]   = useState(false);
   const [done, setDone]         = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Saludo calculado una sola vez al montar el componente
+  const greeting = getGreeting();
 
   const [form, setForm] = useState({
     client_name: '', client_phone: '', client_email: '',
@@ -250,7 +270,6 @@ export default function Landing() {
     } finally { setTracking(false); }
   };
 
-  // Auto-refresh repair status every 30s
   useEffect(() => {
     if (!repair) return;
     const interval = setInterval(async () => {
@@ -284,7 +303,7 @@ export default function Landing() {
           </nav>
 
           <div className="landing-header-actions desktop-only">
-            <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="btn-wa">
+            <a href="https://wa.me/573225251842" target="_blank" rel="noreferrer" className="btn-wa">
               <i className="fa fa-whatsapp"></i> WhatsApp
             </a>
             <button className="btn-admin" onClick={() => navigate('/login')}>
@@ -303,7 +322,7 @@ export default function Landing() {
             <button className="mobile-menu-item" onClick={() => scrollTo('productos')}>Repuestos</button>
             <button className="mobile-menu-item" onClick={() => scrollTo('cotizar')}>Cotizar</button>
             <button className="mobile-menu-item" onClick={() => scrollTo('rastrear')}>Rastrear Equipo</button>
-            <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="btn-wa mobile-menu-item">
+            <a href="https://wa.me/573225251842" target="_blank" rel="noreferrer" className="btn-wa mobile-menu-item">
               <i className="fa fa-whatsapp"></i> WhatsApp
             </a>
             <button className="btn-admin mobile-menu-item" onClick={() => navigate('/login')}>
@@ -319,6 +338,14 @@ export default function Landing() {
           <div className="hero-badge">
             <i className="fa fa-map-marker"></i> Barranquilla, Colombia
           </div>
+
+          {/* Saludo dinámico — solo aparece entre 9am-12pm y 12pm-5pm */}
+          {greeting && (
+            <div className="hero-greeting">
+              <i className={'fa ' + greeting.icon}></i> {greeting.text}
+            </div>
+          )}
+
           <h1 className="hero-title">
             Reparamos tu TV<br />
             <span className="hero-accent">con garantía</span>
@@ -596,7 +623,7 @@ export default function Landing() {
                 )}
 
                 <a
-                  href={'https://wa.me/573000000000?text=Hola, consulto por mi equipo con ticket ' + repair.ticket_number}
+                  href={'https://wa.me/573225251842?text=Hola, consulto por mi equipo con ticket ' + repair.ticket_number}
                   target="_blank"
                   rel="noreferrer"
                   className="wa-btn"
@@ -622,25 +649,77 @@ export default function Landing() {
               </div>
             </div>
             <div>
-              <div className="footer-title">Contacto</div>
-              <div><i className="fa fa-phone"></i> +57 300 0000000</div>
-              <div><i className="fa fa-map-marker"></i> Barranquilla, Colombia</div>
-              <div><i className="fa fa-clock-o"></i> Lun-Sáb 8am-6pm</div>
-            </div>
-            <div>
               <div className="footer-title">Marcas que reparamos</div>
               <div>Samsung · LG · Sony · Hisense</div>
               <div>TCL · Panasonic · Sharp · Philips</div>
             </div>
+            <div>
+              <div className="footer-title">Contacto</div>
+              <div><i className="fa fa-phone"></i> +57 322 5251842</div>
+              <div><i className="fa fa-map-marker"></i> Barranquilla, Colombia</div>
+              <div><i className="fa fa-clock-o"></i> Lun-Sáb 8am-6pm</div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.6rem', marginTop: '0.85rem' }}>
+                <a
+                  href="https://www.instagram.com/electronicalosrobles/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Instagram"
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: 40, height: 40, borderRadius: 10,
+                    background: 'transparent',
+                    border: '1.5px solid #00d4ff',
+                    color: '#00d4ff', fontSize: '1.15rem', textDecoration: 'none',
+                    boxShadow: '0 0 8px #00d4ff55, inset 0 0 8px #00d4ff11',
+                    transition: 'box-shadow 0.2s, color 0.2s',
+                  }}
+                  onMouseOver={e => {
+                    e.currentTarget.style.boxShadow = '0 0 16px #00d4ffaa, inset 0 0 12px #00d4ff22';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseOut={e => {
+                    e.currentTarget.style.boxShadow = '0 0 8px #00d4ff55, inset 0 0 8px #00d4ff11';
+                    e.currentTarget.style.color = '#00d4ff';
+                  }}
+                >
+                  <i className="fa fa-instagram" />
+                </a>
+                <a
+                  href="https://www.facebook.com/electronica.bonilla.35366/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Facebook"
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: 40, height: 40, borderRadius: 10,
+                    background: 'transparent',
+                    border: '1.5px solid #00d4ff',
+                    color: '#00d4ff', fontSize: '1.15rem', textDecoration: 'none',
+                    boxShadow: '0 0 8px #00d4ff55, inset 0 0 8px #00d4ff11',
+                    transition: 'box-shadow 0.2s, color 0.2s',
+                  }}
+                  onMouseOver={e => {
+                    e.currentTarget.style.boxShadow = '0 0 16px #00d4ffaa, inset 0 0 12px #00d4ff22';
+                    e.currentTarget.style.color = '#fff';
+                  }}
+                  onMouseOut={e => {
+                    e.currentTarget.style.boxShadow = '0 0 8px #00d4ff55, inset 0 0 8px #00d4ff11';
+                    e.currentTarget.style.color = '#00d4ff';
+                  }}
+                >
+                  <i className="fa fa-facebook" />
+                </a>
+              </div>
           </div>
           <div className="footer-copy">
-           © {new Date().getFullYear()} Baussa — Todos los derechos reservados
+           © {new Date().getFullYear()} Baussa — Todos los derechos reservados.
           </div>
         </div>
       </footer>
 
       {/* ── FLOATING WA BUTTON ─────────────────────────────────── */}
-      <a href="https://wa.me/573000000000" target="_blank" rel="noreferrer" className="wa-float">
+      <a href="https://wa.me/573225251842" target="_blank" rel="noreferrer" className="wa-float">
         <i className="fa fa-whatsapp"></i>
       </a>
     </div>
